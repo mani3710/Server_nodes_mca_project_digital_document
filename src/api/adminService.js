@@ -8,7 +8,9 @@ const admin = {
     createBatch: `${ADMIN}/createBatch`,
     assignStaff: `${ADMIN}/assignStaff`,
     assignStudent: `${ADMIN}/assignStudent`,
-    createProjectReview: `${ADMIN}/create/projectreview`
+    createProjectReview: `${ADMIN}/create/projectreview`,
+    getProjectMembers: `${ADMIN}/get/members`,
+    getReviewList: `${ADMIN}/get/review`
 }
 
 module.exports = admin;

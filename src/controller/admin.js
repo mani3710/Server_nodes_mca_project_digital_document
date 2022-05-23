@@ -127,6 +127,32 @@ const adminController = {
             res.status(500).json({ error: e.detail, status: 500 });
             res.end();
         }
+    },
+    getProjectMember: async (req, res) => {
+        try {
+
+            const {
+                batchid
+            } = req.query;
+            const data = await adminQuery.getProjectMembers(batchid);
+            res.status(200).json({ message: "success", status: 200, data: data });
+            res.end();
+        } catch (e) {
+            console.log("error", e);
+            res.status(500).json({ error: e, status: 500 });
+            res.end();
+        }
+    },
+    getReviewList: async (req, res) => {
+        try {
+            const data = await adminQuery.getReviewList()
+            res.status(200).json({ message: "Success", status: 200, data: data });
+            res.end();
+        } catch (e) {
+            console.log("error", e);
+            res.status(500).json({ error: e, status: 500 });
+            res.end();
+        }
     }
 };
 module.exports = adminController; 

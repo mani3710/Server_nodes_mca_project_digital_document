@@ -8,5 +8,9 @@ marksRouter.post(marksService.insertReviewTwoMark, marksController.createReviewT
 marksRouter.post(marksService.insertReviewThreeMark, marksController.createReviewThreeMark);
 marksRouter.post(marksService.insertFinalReviewMark, marksController.createFinalReviewMark);
 marksRouter.get(marksService.getFinalMark, marksController.getFinalMark);
+marksRouter.get(marksService.getFirstReview, marksController.getFirstReviewMarkForBatch);
+marksRouter.get(marksService.getTwoReviewMark, marksController.getReviewTwoMarkForBatch);
+marksRouter.get(marksService.getReviewThreeMark, marksController.getReviewThreeMarkForBatch);
+marksRouter.get(marksService.getFinalReviewMark, marksController.getFinalReviewMarkForBatch);
 
 module.exports = marksRouter;      

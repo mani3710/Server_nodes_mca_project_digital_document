@@ -12,9 +12,12 @@ const marksQueries = {
         implementationMark,
         presentationAndReportMark,
         batchid,
-        description
+        description,
+        name,
+        rollno,
+        staffName
     ) {
-        const query = `insert into review_one values('${uuid}','${staffid}','${studentid}','${reviewid}',${clearityInConceptMark},${literatureSureyMark},${detailedDesignMark},${implementationMark},${presentationAndReportMark},'${batchid}','${description}')`;
+        const query = `insert into review_one values('${uuid}','${staffid}','${studentid}','${reviewid}',${clearityInConceptMark},${literatureSureyMark},${detailedDesignMark},${implementationMark},${presentationAndReportMark},'${batchid}','${description}','${name}','${rollno}','${staffName}')`;
         console.log(query)
         const result = await DBService.query(query);
         // DBServiecs.end();
@@ -116,5 +119,57 @@ const marksQueries = {
         return result;
         // return { resultReviewOne, resultReviewTwo, resultReviewThree };
     },
+    async getReviewOneMarksForFirstReview(batchid) {
+        const query = `select 
+        avg(clearityinconceptmark) as clearityinconceptmark, 
+        avg(literaturesureymark) as literaturesureymark,
+        avg(detaileddesignmark) as detaileddesignmark, 
+        avg(implementationmark) as implementationmark,
+        avg(presentationandreportmark) as presentationandreportmark,
+        name,
+        rollno
+        from review_one where batchid='${batchid}' GROUP BY (studentid,name,rollno); `;
+        const result = await DBService.query(query);
+        // DBServiecs.end();
+        console.log(result.rows);
+        return result.rows;
+    },
+    async getReviewTwoMarksForFirstReview(batchid) {
+        const query = `select 
+        avg(detailesdesignmark) as detailesdesignmark,  
+        avg(implementationmark) as implementationmark,
+        avg(performanceandresultmark) as performanceandresultmark,
+        avg(presentationandreportmark) as presentationandreportmark,
+        name,
+        rollno
+        from review_two  where batchid='${batchid}' GROUP BY (studentid,name,rollno); `;
+        const result = await DBService.query(query);
+        // DBServiecs.end();
+        console.log(result.rows);
+        return result.rows;
+    },
+    async getReviewThreeMarksForFirstReview(batchid) {
+        const query = `select  
+        avg(implementationmark) as implementationmark,
+        avg(performanceandresultmark) as performanceandresultmark,
+        avg(reportmark) as reportmark,
+        name,
+        rollno
+        from review_three where batchid='${batchid}' GROUP BY (studentid,name,rollno); `;
+        const result = await DBService.query(query);
+        // DBServiecs.end();
+        console.log(result.rows);
+        return result.rows;
+    },
+    async getFinalReview(batchid) {
+        const query = `select  avg(internalmark) as internal,
+        avg(externalmark) as external,
+        avg(guidemark) as guidemark,   name,
+        rollno from final_review where batchid='${batchid}' GROUP BY (studentid,name,rollno); `;
+        const result = await DBService.query(query);
+        // DBServiecs.end();
+        console.log(result.rows);
+        return result.rows;
+    }
 }
 module.exports = marksQueries 

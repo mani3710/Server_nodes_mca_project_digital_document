@@ -14,7 +14,10 @@ const marksController = {
                 implementationMark,
                 presentationAndReportMark,
                 batchid,
-                description
+                description,
+                name,
+                rollno,
+                staffName
             } = req.body;
             const data = await marksQuery.createReviewOneMark(
                 uuid,
@@ -28,7 +31,10 @@ const marksController = {
                 presentationAndReportMark,
 
                 batchid,
-                description
+                description,
+                name,
+                rollno,
+                staffName
             );
 
             res.status(200).json({ message: "Successfully inserted", status: 200, data: data[0] });
@@ -194,5 +200,65 @@ const marksController = {
             res.end();
         }
     },
+    getFirstReviewMarkForBatch: async (req, res) => {
+        try {
+            console.log(req.query);
+            const {
+                batchid
+            } = req.query;
+            const data = await marksQuery.getReviewOneMarksForFirstReview(batchid);
+            res.status(200).json({ message: "Success", status: 200, data: data });
+            res.end();
+        } catch (e) {
+
+            res.status(500).json({ error: e.detail, status: 300 });
+            res.end();
+        }
+    },
+    getReviewTwoMarkForBatch: async (req, res) => {
+        try {
+            console.log(req.query);
+            const {
+                batchid
+            } = req.query;
+            const data = await marksQuery.getReviewTwoMarksForFirstReview(batchid);
+            res.status(200).json({ message: "Success", status: 200, data: data });
+            res.end();
+        } catch (e) {
+
+            res.status(500).json({ error: e.detail, status: 300 });
+            res.end();
+        }
+    },
+    getReviewThreeMarkForBatch: async (req, res) => {
+        try {
+            console.log(req.query);
+            const {
+                batchid
+            } = req.query;
+            const data = await marksQuery.getReviewThreeMarksForFirstReview(batchid);
+            res.status(200).json({ message: "Success", status: 200, data: data });
+            res.end();
+        } catch (e) {
+
+            res.status(500).json({ error: e.detail, status: 300 });
+            res.end();
+        }
+    },
+    getFinalReviewMarkForBatch: async (req, res) => {
+        try {
+            console.log(req.query);
+            const {
+                batchid
+            } = req.query;
+            const data = await marksQuery.getFinalReview(batchid);
+            res.status(200).json({ message: "Success", status: 200, data: data });
+            res.end();
+        } catch (e) {
+
+            res.status(500).json({ error: e.detail, status: 300 });
+            res.end();
+        }
+    }
 }
 module.exports = marksController;

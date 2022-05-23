@@ -59,6 +59,26 @@ const adminQueries = {
         const result = await DBService.query(query);
         // DBServiecs.end();       
         return result.rows;
+    },
+    async getProjectMembers(
+        batchid
+    ) {
+        const staffQuery = `SELECT * FROM staff
+        WHERE uuid IN (select staffid from batch_staff where batchid='${batchid}');`;
+
+        const staffResult = await DBService.query(staffQuery);
+        const studentQuery = `SELECT * FROM student
+        WHERE uuid IN (select studentid from batch_student where batchid='${batchid}');`;
+
+        const studentResult = await DBService.query(studentQuery);
+        return { student: studentResult.rows, staff: staffResult.rows };
+    },
+    async getReviewList() {
+        const query = `select * from review`;
+        console.log(query)
+        const result = await DBService.query(query);
+        // DBServiecs.end();
+        return result.rows;
     }
 
 }

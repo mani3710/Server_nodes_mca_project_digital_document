@@ -10,5 +10,7 @@ adminRouter.post(adminServices.createBatch, adminController.createBatch);
 adminRouter.post(adminServices.assignStaff, adminController.assignReviewToStaff);
 adminRouter.post(adminServices.assignStudent, adminController.assignReviewToStudent);
 adminRouter.post(adminServices.createProjectReview, adminController.createReviewProject);
+adminRouter.get(adminServices.getProjectMembers, adminController.getProjectMember);
+adminRouter.get(adminServices.getReviewList, adminController.getReviewList);
 
-module.exports = adminRouter; 
+module.exports = adminRouter;  
