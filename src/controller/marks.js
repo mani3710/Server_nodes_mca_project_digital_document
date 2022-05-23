@@ -26,6 +26,7 @@ const marksController = {
                 detailedDesignMark,
                 implementationMark,
                 presentationAndReportMark,
+
                 batchid,
                 description
             );

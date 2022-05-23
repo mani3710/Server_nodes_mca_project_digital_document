@@ -1,7 +1,10 @@
 
 const express = require("express");
 const bodyParser = require("body-parser");
-
+const AdminJS = require('adminjs')
+const AdminJSExpress = require('@adminjs/express')
+const db = require("./src/config/databaseConfig");
+var cors = require('cors')
 const app = express();
 require('dotenv').config();
 const {
@@ -12,6 +15,7 @@ const {
     marksRoutes,
     projectRoutes
 } = require('./src/routes');
+app.use(cors())
 app.use(function (req, res, next) {
     res.contentType('application/json');
     next();
@@ -27,6 +31,7 @@ app.use('/', staffRoutes);
 app.use('/', studentRoutes);
 app.use('/', marksRoutes);
 app.use('/', projectRoutes);
+
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}.`);

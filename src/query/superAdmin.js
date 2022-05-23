@@ -8,11 +8,19 @@ const superAdminQueries = {
         return result.rows;
     },
     async createAdmin(uuid, name, password) {
-        const query = `insert into admin values('${uuid}','${name}','${password}')`;
-        const result = await DBService.query(query);
-        // DBServiecs.end();
-        console.log(result.rows);
-        return result.rows;
+        const userCheckQuery = `select * from admin where username='${name}'`;
+        const userCheckResult = await DBService.query(userCheckQuery);
+        console.log("userCheckResult.rows", userCheckResult.rows)
+        if (userCheckResult.rows.length) {
+            console.log("in")
+            return "User name already exisit";
+        } else {
+            const query = `insert into admin values('${uuid}','${name}','${password}')`;
+            const result = await DBService.query(query);
+            console.log(result.rows);
+            return result.rows;
+        }
+
     },
     async deleteAdmin(uuid) {
         const query = `DELETE FROM admin where uuid='${uuid}'`;
@@ -27,7 +35,7 @@ const superAdminQueries = {
         console.log(query);
         const result = await DBService.query(query);
         // DBServiecs.end();
-        console.log(result.rows);
+
         return result.rows;
     }
 

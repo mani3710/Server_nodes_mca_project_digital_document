@@ -19,8 +19,13 @@ const adminController = {
                 name,
                 password
             } = req.body;
-            await superAdminQuery.createAdmin(uuid, name, password);
-            res.status(200).json({ message: "Created successfully", status: 200 });
+            const result = await superAdminQuery.createAdmin(uuid, name, password);
+            console.log(result);
+            if (result != "User name already exisit") {
+                res.status(200).json({ message: "Created successfully", status: 200 });
+            } else {
+                res.status(200).json({ message: "User name already found", status: 200 });
+            }
             res.end();
         } catch (e) {
             console.log("error", e);
@@ -30,7 +35,7 @@ const adminController = {
     },
     deleteAdmin: async (req, res) => {
         try {
-            console.log(req.body);
+            console.log("deleted", req.body);
             const {
                 uuid
             } = req.body;
