@@ -1,8 +1,8 @@
 const DBService = require('../config/databaseConfig');
 
 const adminQueries = {
-    async getRviewList() {
-        const getQuery = `select * from review`;
+    async getRviewList(projectid) {
+        const getQuery = `select * from review where projectid='${projectid}'`;
         const result = await DBService.query(getQuery);
         // DBServiecs.end();
         return result.rows;
@@ -73,8 +73,8 @@ const adminQueries = {
         const studentResult = await DBService.query(studentQuery);
         return { student: studentResult.rows, staff: staffResult.rows };
     },
-    async getReviewList() {
-        const query = `select * from review`;
+    async getReviewList(projectid) {
+        const query = `select * from reviewInfo where projectid='${projectid}'`;
         console.log(query)
         const result = await DBService.query(query);
         // DBServiecs.end();

@@ -2,8 +2,12 @@ const { adminQuery } = require('../query');
 const adminController = {
     getReviewList: async (req, res) => {
         try {
-            const data = await adminQuery.getRviewList();
-            res.status(200).json({ data: data, status: 200 });
+            console.log(req.query);
+            const {
+                projectid
+            } = req.query;
+            const data = await adminQuery.getRviewList(projectid);
+            res.status(200).json({ data: data, status: 200, success: "success" });
             res.end();
         } catch (e) {
             console.log("error", e);
@@ -145,7 +149,11 @@ const adminController = {
     },
     getReviewList: async (req, res) => {
         try {
-            const data = await adminQuery.getReviewList()
+            console.log(req.query);
+            const {
+                projectid
+            } = req.query;
+            const data = await adminQuery.getReviewList(projectid)
             res.status(200).json({ message: "Success", status: 200, data: data });
             res.end();
         } catch (e) {
