@@ -170,6 +170,86 @@ const marksQueries = {
         // DBServiecs.end();
         console.log(result.rows);
         return result.rows;
+    },
+    async createReviewList(arrayOfReview) {
+        let query = `INSERT INTO reviewinfo(uuid,reviewname,projectid) VALUES`;
+        for (let i = 0; i < arrayOfReview.length; i++) {
+            if (i != arrayOfReview.length - 1) {
+                query += `('${arrayOfReview[i].uuid}','${arrayOfReview[i].title}','${arrayOfReview[i].projectid}'),`
+            } else {
+                query += `('${arrayOfReview[i].uuid}','${arrayOfReview[i].title}','${arrayOfReview[i].projectid}');`
+            }
+        }
+        const result = await DBService.query(query);
+        // DBServiecs.end();
+        console.log(result.rows);
+        return result.rows;
+    },
+    async createReviewTopicList(arrayOfReviewTopic) {
+        let query = `INSERT INTO reviewtopic(uuid,reviewid,maxmark,title) VALUES`;
+        for (let i = 0; i < arrayOfReviewTopic.length; i++) {
+            if (i != arrayOfReviewTopic.length - 1) {
+                query += `('${arrayOfReviewTopic[i].uuid}','${arrayOfReviewTopic[i].reviewid}',${arrayOfReviewTopic[i].maxmark},'${arrayOfReviewTopic[i].title}'),`
+            } else {
+                query += `('${arrayOfReviewTopic[i].uuid}','${arrayOfReviewTopic[i].reviewid}',${arrayOfReviewTopic[i].maxmark},'${arrayOfReviewTopic[i].title}');`
+            }
+        }
+        const result = await DBService.query(query);
+        // DBServiecs.end();
+        console.log(result.rows);
+        return result.rows;
+    },
+    async insertMarks(arrayOfMarks) {
+        let query = `INSERT INTO mark(uuid,studentid,staffid,topicid,reviewid,batchid,mark,name,rollno) VALUES`;
+        for (let i = 0; i < arrayOfMarks.length; i++) {
+            if (i != arrayOfMarks.length - 1) {
+                query +=
+                    `('
+                ${arrayOfMarks[i].uuid}',
+                '${arrayOfMarks[i].studentid}',
+                '${arrayOfMarks[i].staffid}',
+                '${arrayOfMarks[i].topicid}',
+                '${arrayOfMarks[i].reviewid}',
+                '${arrayOfMarks[i].batchid}',
+                ${arrayOfMarks[i].mark},
+                '${arrayOfMarks[i].name}',
+                '${arrayOfMarks[i].rollno}'
+                ),`
+            } else {
+                query +=
+                    `('
+                ${arrayOfMarks[i].uuid}',
+                '${arrayOfMarks[i].studentid}',
+                '${arrayOfMarks[i].staffid}',
+                '${arrayOfMarks[i].topicid}',
+                '${arrayOfMarks[i].reviewid}',
+                '${arrayOfMarks[i].batchid}',
+                ${arrayOfMarks[i].mark},
+                '${arrayOfMarks[i].name}',
+                '${arrayOfMarks[i].rollno}'
+                );`
+            }
+        }
+        const result = await DBService.query(query);
+        // DBServiecs.end();
+        console.log(result.rows);
+        return result.rows;
+    },
+    async getReviewMark(reviewid) {
+        let markQuery = `select sum(mark)/count(mark) as mark,
+        name, 
+        rollno,
+        topicid    
+        from mark
+         where reviewid='${reviewid}' 
+         group by (studentid,name,rollno,topicid);`;
+        const markResult = await DBService.query(markQuery);
+
+        let topicQuery = `select * from reviewtopic where reviewid='${reviewid}';`;
+        const topicResult = await DBService.query(topicQuery);
+        // let rollNumberQuery = `select rollno from mark where reviewid='${reviewid}' group by (rollno);`;
+        // const topicResult = await DBService.query(topicQuery);
+        return { topicArray: topicResult.rows, markArray: markResult.rows };
     }
 }
-module.exports = marksQueries 
+module.exports = marksQueries   

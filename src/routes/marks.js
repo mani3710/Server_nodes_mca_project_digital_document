@@ -12,5 +12,8 @@ marksRouter.get(marksService.getFirstReview, marksController.getFirstReviewMarkF
 marksRouter.get(marksService.getTwoReviewMark, marksController.getReviewTwoMarkForBatch);
 marksRouter.get(marksService.getReviewThreeMark, marksController.getReviewThreeMarkForBatch);
 marksRouter.get(marksService.getFinalReviewMark, marksController.getFinalReviewMarkForBatch);
-
+marksRouter.post(marksService.createReviewList, marksController.createReviewList);
+marksRouter.post(marksService.createReviewTopicList, marksController.createReviewTopicList);
+marksRouter.post(marksService.createReviewMarks, marksController.createReviewMarks);
+marksRouter.get(marksService.getReviewMark, marksController.getReviewMark);
 module.exports = marksRouter;      

@@ -259,6 +259,111 @@ const marksController = {
             res.status(500).json({ error: e.detail, status: 300 });
             res.end();
         }
+    },
+    createReviewList: async (req, res) => {
+        try {
+            console.log(req.body);
+            const {
+                reviewList
+            } = req.body;
+            await marksQuery.createReviewList(reviewList);
+            res.status(200).json({ message: "created", status: 200 });
+
+            res.end();
+        } catch (e) {
+            console.log("error", e);
+            res.status(500).json({ error: e, status: 500 });
+            res.end();
+        }
+    },
+    createReviewTopicList: async (req, res) => {
+        try {
+            console.log(req.body);
+            const {
+                reviewTopicList
+            } = req.body;
+            await marksQuery.createReviewTopicList(reviewTopicList);
+            res.status(200).json({ message: "created", status: 200 });
+
+            res.end();
+        } catch (e) {
+            console.log("error", e);
+            res.status(500).json({ error: e, status: 500 });
+            res.end();
+        }
+    },
+    createReviewMarks: async (req, res) => {
+        try {
+            console.log(req.body);
+            const {
+                reviewMarkList
+            } = req.body;
+            await marksQuery.insertMarks(reviewMarkList);
+            res.status(200).json({ message: "created", status: 200 });
+
+            res.end();
+        } catch (e) {
+            console.log("error", e);
+            res.status(500).json({ error: e, status: 500 });
+            res.end();
+        }
+    },
+    getReviewMark: async (req, res) => {
+        try {
+            console.log(req.query);
+            const {
+                reviewid
+            } = req.query;
+            const result = await marksQuery.getReviewMark(reviewid);
+            // console.log("result", result); n
+            let distintingName = {};
+            for (let i = 0; i < result.markArray.length; i++) {
+                if (distintingName.hasOwnProperty(result.markArray[i].rollno)) {
+                    distintingName[result.markArray[i].rollno].push(result.markArray[i]);
+                } else {
+                    distintingName[result.markArray[i].rollno] = [
+                        {
+                            ...result.markArray[i]
+                        }
+                    ]
+                }
+            }
+            // console.log("result", distintingName);
+            let newArrayMarkValue = [];
+            Object.keys(distintingName).forEach(function (key) {
+                let markPerPerson = distintingName[key];
+                let newObj = { name: markPerPerson[0].name, rollno: markPerPerson[0].rollno };
+                for (let mark of markPerPerson) {
+                    newObj[mark.topicid] = mark.mark;
+                }
+                newArrayMarkValue.push(newObj);
+            });
+
+            // for (let markPerPerson of distintingName) {
+            //     let newObj = { name: markPerPerson[0].name, rollno: markPerPerson[0].rollno };
+            //     for (let mark of markPerPerson) {
+            //         newObj[mark.topicid] = mark.mark;
+
+            //     }
+            //     newArrayValue.push(newObj);
+            // }
+
+
+            // for(let i =0;i<result.topicArray.length;i++){
+            //     for(let j =0;j<result.markArray.length;j++){
+            //      if(result.markArray[j].topicid == result.topicArray[i].uuid){
+
+            //      }
+            //     }
+            // }
+            res.status(200).json({ message: "created", status: 200, data: { marks: newArrayMarkValue, topic: result.topicArray } });
+
+            res.end();
+        } catch (e) {
+            console.log("error", e);
+            res.status(500).json({ error: e, status: 500 });
+            res.end();
+        }
     }
 }
 module.exports = marksController;
