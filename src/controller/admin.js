@@ -87,9 +87,10 @@ const adminController = {
         try {
             const {
                 batchid,
-                staffid
+                staffid,
+                projectid
             } = req.body;
-            await adminQuery.assignStaffToReview(batchid, staffid);
+            await adminQuery.assignStaffToReview(batchid, staffid, projectid);
             res.status(200).json({ message: "Assign review successfully", status: 200 });
             res.end();
         } catch (e) {
@@ -103,10 +104,10 @@ const adminController = {
             const {
                 batchid,
                 studentid,
-                guidename
+                projectid
             } = req.body;
             console.log(req.body);
-            await adminQuery.assignStudentToReview(batchid, studentid, guidename);
+            await adminQuery.assignStudentToReview(batchid, studentid, projectid);
             res.status(200).json({ message: "Assign review successfully", status: 200 });
             res.end();
         } catch (e) {

@@ -35,15 +35,15 @@ const adminQueries = {
         // DBServiecs.end();
         return result.rows;
     },
-    async assignStaffToReview(batchid, staffid) {
-        const query = `insert into batch_staff values('${batchid}','${staffid}')`;
+    async assignStaffToReview(batchid, staffid, projectid) {
+        const query = `insert into batch_staff values('${batchid}','${staffid}','${projectid}')`;
         console.log(query)
         const result = await DBService.query(query);
         // DBServiecs.end();  
         return result.rows;
     },
-    async assignStudentToReview(batchid, studentid, guidename) {
-        const query = `insert into batch_student values('${batchid}','${studentid}','${guidename}')`;
+    async assignStudentToReview(batchid, studentid, projectid) {
+        const query = `insert into batch_student values('${batchid}','${studentid}','${projectid}')`;
         console.log(query)
         const result = await DBService.query(query);
         // DBServiecs.end();  
