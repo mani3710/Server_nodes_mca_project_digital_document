@@ -219,7 +219,7 @@ const marksQueries = {
                 query +=
                     `('
                 ${arrayOfMarks[i].uuid}',
-                '${arrayOfMarks[i].studentid}',
+                '${arrayOfMarks[i].studentid}', 
                 '${arrayOfMarks[i].staffid}',
                 '${arrayOfMarks[i].topicid}',
                 '${arrayOfMarks[i].reviewid}',

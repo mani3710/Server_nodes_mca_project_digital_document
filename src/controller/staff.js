@@ -66,6 +66,52 @@ const adminController = {
             res.status(500).json({ error: e.detail, status: 500 });
             res.end();
         }
+    },
+    getStaffBatchStudents: async (req, res) => {
+        try {
+            console.log(req.query);
+            const {
+                staffid,
+                projectid
+            } = req.query;
+            const data = await staffQuery.getBatchStudentForStaff(staffid, projectid);
+            res.status(200).json({ message: "Success", status: 200, data: data });
+            res.end();
+        } catch (e) {
+            console.log("error", e);
+            res.status(500).json({ error: e.detail, status: 500 });
+            res.end();
+        }
+    },
+    getProjectReviewList: async (req, res) => {
+        try {
+            console.log(req.query);
+            const {
+                projectid
+            } = req.query;
+            const data = await staffQuery.getProjectReviewList(projectid);
+            res.status(200).json({ message: "Success", status: 200, data: data });
+            res.end();
+        } catch (e) {
+            console.log("error", e);
+            res.status(500).json({ error: e.detail, status: 500 });
+            res.end();
+        }
+    },
+    getReviewTopicList: async (req, res) => {
+        try {
+            console.log(req.query);
+            const {
+                reviewid
+            } = req.query;
+            const data = await staffQuery.getReviewTopic(reviewid);
+            res.status(200).json({ message: "Success", status: 200, data: data });
+            res.end();
+        } catch (e) {
+            console.log("error", e);
+            res.status(500).json({ error: e.detail, status: 500 });
+            res.end();
+        }
     }
 
 };
