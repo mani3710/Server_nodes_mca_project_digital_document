@@ -17,6 +17,13 @@ const studentQueries = {
 
         console.log(result.rows);
         return result.rows;
-    }
+    },
+    async signStudent(roll, password) {
+        const query = `select * from student where rollno='${roll}' and password='${password}'`;
+        const result = await DBService.query(query);
+        // DBServiecs.end();
+        console.log(result.rows);
+        return result.rows;
+    },
 }
 module.exports = studentQueries;

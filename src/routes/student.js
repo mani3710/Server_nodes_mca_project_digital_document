@@ -5,5 +5,6 @@ const { studentController } = require('../controller');
 
 studentRouter.post(studentServices.createStudent, studentController.createStudent);
 studentRouter.get(studentServices.getStudentList, studentController.getStudentDataList);
+studentRouter.post(studentServices.signStudent, studentController.studentSignIn);
 
 module.exports = studentRouter; 

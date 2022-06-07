@@ -112,7 +112,8 @@ const adminController = {
             res.status(500).json({ error: e.detail, status: 500 });
             res.end();
         }
-    }
+    },
+
 
 };
 module.exports = adminController;  
