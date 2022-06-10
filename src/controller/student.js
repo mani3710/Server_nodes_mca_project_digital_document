@@ -49,5 +49,66 @@ const studentController = {
             res.end();
         }
     },
+    getStudentProjectList: async (req, res) => {
+        try {
+            const {
+                studentid
+            } = req.query;
+            const result = await studentQuery.getStudentProjectList(studentid);
+            res.status(200).json({ message: "Success", status: 200, data: result });
+            res.end();
+        } catch (e) {
+            res.status(500).json({ error: e.detail, status: 500 });
+            res.end();
+        }
+    },
+    getStudentProjectReviewList: async (req, res) => {
+        try {
+            const {
+                projectid
+            } = req.query;
+            const result = await studentQuery.getStudentProjectReviewList(projectid);
+            res.status(200).json({ message: "Success", status: 200, data: result });
+            res.end();
+        } catch (e) {
+            res.status(500).json({ error: e.detail, status: 500 });
+            res.end();
+        }
+    },
+    getReviewMarkForStudent: async (req, res) => {
+        try {
+            const {
+                reviewid,
+                studentid
+            } = req.query;
+            const result = await studentQuery.getReviewMarkForStudent(reviewid, studentid);
+            res.status(200).json({ message: "Success", status: 200, data: result });
+            res.end();
+        } catch (e) {
+            res.status(500).json({ error: e.detail, status: 500 });
+            res.end();
+        }
+    },
+    insertStudentProject: async (req, res) => {
+        try {
+            const {
+                arrayOfProjectInfo,
+                uuid,
+                studentid,
+                projectid,
+                title,
+                domain,
+                abstract,
+                year
+            } = req.body;
+
+            await studentQuery.insertStudentProject(arrayOfProjectInfo, uuid, studentid, projectid, title, domain, abstract, year);
+            res.status(200).json({ message: "Success", status: 200 });
+            res.end();
+        } catch (e) {
+            res.status(500).json({ error: e.detail, status: 500 });
+            res.end();
+        }
+    }
 }
 module.exports = studentController;
