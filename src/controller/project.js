@@ -62,6 +62,38 @@ const projectController = {
             res.status(500).json({ error: e.detail, status: 500 });
             res.end();
         }
+    },
+    getProjectListForFeed: async (req, res) => {
+        try {
+
+            const data = await projectQuery.getProjectListForFeed();
+            res.status(200).json({ message: "Success", status: 200, data: data });
+            res.end();
+        } catch (e) {
+            console.log("error", e);
+            res.status(500).json({ error: e.detail, status: 500 });
+            res.end();
+        }
+    },
+    getProjectDetailsData: async (req, res) => {
+        try {
+            console.log(req.query);
+            const {
+                studentid,
+                projectid
+            } = req.query;
+            const data = await projectQuery.getProjectDetailsData(
+                projectid,
+                studentid
+            );
+            res.status(200).json({ message: "Success", status: 200, data: data });
+
+            res.end();
+        } catch (e) {
+            console.log("error", e);
+            res.status(500).json({ error: e.detail, status: 500 });
+            res.end();
+        }
     }
 }
 module.exports = projectController;

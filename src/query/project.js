@@ -30,6 +30,22 @@ const projectQueries = {
         const resultVal = await DBService.query(query);
         return resultVal.rows;
     },
+    async getProjectListForFeed(
+    ) {
+        const query = `select * from projectinfo order by adddate desc`;
+        console.log(query)
+        const resultVal = await DBService.query(query);
+        return resultVal.rows;
+    },
+    async getProjectDetailsData(
+        projectid,
+        studentid
+    ) {
+        const query = `select * from uploadproject where projectid ='${projectid}' and studentid='${studentid}' order by orderno;`;
+        console.log(query)
+        const resultVal = await DBService.query(query);
+        return resultVal.rows;
+    }
 
 
 }

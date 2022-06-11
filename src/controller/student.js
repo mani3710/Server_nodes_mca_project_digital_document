@@ -99,10 +99,11 @@ const studentController = {
                 title,
                 domain,
                 abstract,
-                year
+                year,
+                adddate
             } = req.body;
 
-            await studentQuery.insertStudentProject(arrayOfProjectInfo, uuid, studentid, projectid, title, domain, abstract, year);
+            await studentQuery.insertStudentProject(arrayOfProjectInfo, uuid, studentid, projectid, title, domain, abstract, year, adddate);
             res.status(200).json({ message: "Success", status: 200 });
             res.end();
         } catch (e) {

@@ -5,5 +5,6 @@ const { projectController } = require('../controller');
 
 projectRouter.post(projectService.uploadProjectDetails, projectController.uploadProject);
 projectRouter.get(projectService.getProjectList, projectController.getProjectByID);
-
-module.exports = projectRouter;
+projectRouter.get(projectService.getProjectForFeed, projectController.getProjectListForFeed);
+projectRouter.get(projectService.getProjectDetailsData, projectController.getProjectDetailsData);
+module.exports = projectRouter;   

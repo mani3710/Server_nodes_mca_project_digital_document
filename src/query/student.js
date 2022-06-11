@@ -56,8 +56,8 @@ const studentQueries = {
         // const topicResult = await DBService.query(topicQuery);
         return { topicArray: topicResult.rows, markArray: markResult.rows };
     },
-    async insertStudentProject(arrayOfProjectInfo, uuid, studentid, projectid, title, domain, abstract, year) {
-        let query1 = `INSERT INTO projectinfo values('${uuid}','${studentid}','${projectid}','${title}',${year},'${domain}','${abstract}')`;
+    async insertStudentProject(arrayOfProjectInfo, uuid, studentid, projectid, title, domain, abstract, year, adddate) {
+        let query1 = `INSERT INTO projectinfo values('${uuid}','${studentid}','${projectid}','${title}',${year},'${domain}','${abstract}','${adddate}')`;
         const result1 = await DBService.query(query1);
 
         let query = `INSERT INTO uploadproject(uuid,studentid,projectid,orderno,type,valuedata,option,title) VALUES`;
