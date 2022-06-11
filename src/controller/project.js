@@ -94,6 +94,60 @@ const projectController = {
             res.status(500).json({ error: e.detail, status: 500 });
             res.end();
         }
+    },
+    projectSearchByTitle: async (req, res) => {
+        try {
+            console.log(req.query);
+            const {
+                text
+            } = req.query;
+            const data = await projectQuery.projectSearchByTitle(
+                text
+            );
+            res.status(200).json({ message: "Success", status: 200, data: data });
+
+            res.end();
+        } catch (e) {
+            console.log("error", e);
+            res.status(500).json({ error: e.detail, status: 500 });
+            res.end();
+        }
+    },
+    projectSearchByDomain: async (req, res) => {
+        try {
+            console.log(req.query);
+            const {
+                text
+            } = req.query;
+            const data = await projectQuery.projectSearchByDomain(
+                text
+            );
+            res.status(200).json({ message: "Success", status: 200, data: data });
+
+            res.end();
+        } catch (e) {
+            console.log("error", e);
+            res.status(500).json({ error: e.detail, status: 500 });
+            res.end();
+        }
+    },
+    projectSearchByYear: async (req, res) => {
+        try {
+            console.log(req.query);
+            const {
+                text
+            } = req.query;
+            const data = await projectQuery.projectSearchByYear(
+                text
+            );
+            res.status(200).json({ message: "Success", status: 200, data: data });
+
+            res.end();
+        } catch (e) {
+            console.log("error", e);
+            res.status(500).json({ error: e.detail, status: 500 });
+            res.end();
+        }
     }
 }
 module.exports = projectController;

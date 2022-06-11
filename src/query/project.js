@@ -45,6 +45,30 @@ const projectQueries = {
         console.log(query)
         const resultVal = await DBService.query(query);
         return resultVal.rows;
+    },
+    async projectSearchByTitle(
+        text
+    ) {
+        const query = `SELECT * FROM projectinfo WHERE LOWER(title) LIKE '%${text}%' order by adddate desc;`;
+        console.log(query)
+        const resultVal = await DBService.query(query);
+        return resultVal.rows;
+    },
+    async projectSearchByDomain(
+        text
+    ) {
+        const query = `SELECT * FROM projectinfo WHERE LOWER(domain) LIKE '%${text}%' order by adddate desc;`;
+        console.log(query)
+        const resultVal = await DBService.query(query);
+        return resultVal.rows;
+    },
+    async projectSearchByYear(
+        text
+    ) {
+        const query = `SELECT * FROM projectinfo WHERE year=${text} order by adddate desc;`;
+        console.log(query)
+        const resultVal = await DBService.query(query);
+        return resultVal.rows;
     }
 
 
