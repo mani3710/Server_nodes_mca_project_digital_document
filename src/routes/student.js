@@ -10,5 +10,6 @@ studentRouter.get(studentServices.getStudentProject, studentController.getStuden
 studentRouter.get(studentServices.getStudentProjectReviewList, studentController.getStudentProjectReviewList);
 studentRouter.get(studentServices.getStudentProjectReviewMark, studentController.getReviewMarkForStudent);
 studentRouter.post(studentServices.insertStudentProject, studentController.insertStudentProject);
+studentRouter.get(studentServices.getStudentDetails, studentController.getStudentDetails);
 
 module.exports = studentRouter;      

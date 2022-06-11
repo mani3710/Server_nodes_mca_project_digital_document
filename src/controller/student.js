@@ -110,6 +110,21 @@ const studentController = {
             res.status(500).json({ error: e.detail, status: 500 });
             res.end();
         }
+    },
+    getStudentDetails: async (req, res) => {
+        try {
+            const {
+                studentid
+            } = req.query;
+            console.log(studentid)
+            const result = await studentQuery.getStudentDetails(studentid);
+            res.status(200).json({ message: "Success", status: 200, data: result });
+            res.end();
+
+        } catch (e) {
+            res.status(500).json({ error: e.detail, status: 500 });
+            res.end();
+        }
     }
 }
 module.exports = studentController;

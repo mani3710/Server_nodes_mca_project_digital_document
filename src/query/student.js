@@ -92,6 +92,14 @@ const studentQueries = {
         const result = await DBService.query(query);
 
         return { result: "" };
+    },
+    async getStudentDetails(studentid) {
+        console.log("studentid", studentid)
+        const query = `select * from student where uuid='${studentid}';`;
+        const result = await DBService.query(query);
+        // DBServiecs.end();
+        console.log(result.rows[0]);
+        return result.rows[0];
     }
 }
 module.exports = studentQueries;

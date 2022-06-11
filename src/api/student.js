@@ -7,7 +7,8 @@ const student = {
     getStudentProject: `${STUDENT}/get/project`,
     getStudentProjectReviewList: `${STUDENT}/get/project/review`,
     getStudentProjectReviewMark: `${STUDENT}/get/project/review/mark`,
-    insertStudentProject: `${STUDENT}/insert/project`
+    insertStudentProject: `${STUDENT}/insert/project`,
+    getStudentDetails: `${STUDENT}/get/details`
 }
 
 module.exports = student; 
