@@ -1,3 +1,5 @@
+
+const nodemailer = require('nodemailer');
 const { adminQuery } = require('../query');
 const adminController = {
     getReviewList: async (req, res) => {
@@ -155,6 +157,89 @@ const adminController = {
                 projectid
             } = req.query;
             const data = await adminQuery.getReviewList(projectid)
+            res.status(200).json({ message: "Success", status: 200, data: data });
+            res.end();
+        } catch (e) {
+            console.log("error", e);
+            res.status(500).json({ error: e, status: 500 });
+            res.end();
+        }
+    },
+    sendNotification: async (req, res) => {
+        try {
+            console.log(req.body);
+            const {
+                message,
+                subject
+            } = req.body;
+            const data = await adminQuery.sendnNotification();
+            let mailTransporter = nodemailer.createTransport({
+                service: 'gmail',
+                auth: {
+                    user: "ceg.mca.notification@gmail.com",
+                    pass: "sxksdmpgccjccffz"
+                }
+            });
+            for (let obj of data.students) {
+                let mailDetails = {
+                    from: "ceg.mca.notification@gmail.com",
+                    to: obj.email,
+                    subject: subject,
+                    text: message
+                };
+                console.log(mailDetails);
+
+                mailTransporter.sendMail(mailDetails, function (err, data) {
+                    if (err) {
+                        console.log('Error Occurs', err);
+                    } else {
+                        console.log('Email sent successfully');
+                    }
+                });
+            }
+
+            res.status(200).json({ message: "Success", status: 200, data: data });
+            res.end();
+        } catch (e) {
+            console.log("error", e);
+            res.status(500).json({ error: e, status: 500 });
+            res.end();
+        }
+    },
+    sendNotificationForAllProjectMembers: async (req, res) => {
+        try {
+            console.log(req.body);
+            const {
+                message,
+                subject,
+                projectid
+            } = req.body;
+            const data = await adminQuery.sendNotificationForAllProjectMembers(projectid);
+            let mailTransporter = nodemailer.createTransport({
+                service: 'gmail',
+                auth: {
+                    user: "ceg.mca.notification@gmail.com",
+                    pass: "sxksdmpgccjccffz"
+                }
+            });
+            for (let obj of data.students) {
+                let mailDetails = {
+                    from: "ceg.mca.notification@gmail.com",
+                    to: obj.email,
+                    subject: subject,
+                    text: message
+                };
+                console.log(mailDetails);
+
+                mailTransporter.sendMail(mailDetails, function (err, data) {
+                    if (err) {
+                        console.log('Error Occurs', err);
+                    } else {
+                        console.log('Email sent successfully');
+                    }
+                });
+            }
+
             res.status(200).json({ message: "Success", status: 200, data: data });
             res.end();
         } catch (e) {

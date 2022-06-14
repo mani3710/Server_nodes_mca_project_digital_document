@@ -10,7 +10,9 @@ const admin = {
     assignStudent: `${ADMIN}/assignStudent`,
     createProjectReview: `${ADMIN}/create/projectreview`,
     getProjectMembers: `${ADMIN}/get/members`,
-    getReviewList: `${ADMIN}/get/review`
+    getReviewList: `${ADMIN}/get/review`,
+    sendNotification: `${ADMIN}/send/notification`,
+    sendNotificationForAllProjectMembers: `${ADMIN}/notification/forproject`
 }
 
 module.exports = admin;
