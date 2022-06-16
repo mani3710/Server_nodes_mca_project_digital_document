@@ -12,7 +12,8 @@ const admin = {
     getProjectMembers: `${ADMIN}/get/members`,
     getReviewList: `${ADMIN}/get/review`,
     sendNotification: `${ADMIN}/send/notification`,
-    sendNotificationForAllProjectMembers: `${ADMIN}/notification/forproject`
+    sendNotificationForAllProjectMembers: `${ADMIN}/notification/forproject`,
+    sendNotificationForSpecific: `${ADMIN}/notification/specific`
 }
 
 module.exports = admin;

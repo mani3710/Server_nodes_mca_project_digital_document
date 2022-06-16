@@ -240,7 +240,67 @@ const adminController = {
                 });
             }
 
+            for (let obj of data.staffs) {
+                let mailDetails = {
+                    from: "ceg.mca.notification@gmail.com",
+                    to: obj.email,
+                    subject: subject,
+                    text: message
+                };
+                console.log(mailDetails);
+
+                mailTransporter.sendMail(mailDetails, function (err, data) {
+                    if (err) {
+                        console.log('Error Occurs', err);
+                    } else {
+                        console.log('Email sent successfully');
+                    }
+                });
+            }
+
             res.status(200).json({ message: "Success", status: 200, data: data });
+            res.end();
+        } catch (e) {
+            console.log("error", e);
+            res.status(500).json({ error: e, status: 500 });
+            res.end();
+        }
+    },
+    sendNotificationForSpecific: async (req, res) => {
+        try {
+            console.log(req.body);
+            const {
+                message,
+                subject,
+                emails
+            } = req.body;
+            // const data = await adminQuery.sendNotificationForAllProjectMembers(projectid);
+            let mailTransporter = nodemailer.createTransport({
+                service: 'gmail',
+                auth: {
+                    user: "ceg.mca.notification@gmail.com",
+                    pass: "sxksdmpgccjccffz"
+                }
+            });
+            for (let obj of emails) {
+                let mailDetails = {
+                    from: "ceg.mca.notification@gmail.com",
+                    to: obj.email,
+                    subject: subject,
+                    text: message
+                };
+                console.log(mailDetails);
+
+                mailTransporter.sendMail(mailDetails, function (err, data) {
+                    if (err) {
+                        console.log('Error Occurs', err);
+                    } else {
+                        console.log('Email sent successfully');
+                    }
+                });
+            }
+
+            res.status(200).json({ message: "Success", status: 200 });
             res.end();
         } catch (e) {
             console.log("error", e);

@@ -14,5 +14,6 @@ adminRouter.get(adminServices.getProjectMembers, adminController.getProjectMembe
 adminRouter.get(adminServices.getReviewList, adminController.getReviewList);
 adminRouter.post(adminServices.sendNotification, adminController.sendNotification);
 adminRouter.post(adminServices.sendNotificationForAllProjectMembers, adminController.sendNotificationForAllProjectMembers);
+adminRouter.post(adminServices.sendNotificationForSpecific, adminController.sendNotificationForSpecific);
 
 module.exports = adminRouter;       
